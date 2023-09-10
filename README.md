@@ -17,6 +17,7 @@ Languages/Libraries/Tools to be used:
 Folder Structure
 
 ### `- src`
+        - index.js
 ###    `- app`
          - App.js
          - App.css
@@ -27,7 +28,6 @@ Folder Structure
 ###    `- screen`
          - FlavanoidsStatistics.tsx
          - GammaStatistics.tsx
-    - index.js
 
 ![alt text](https://github.com/SarfarazInfoTech/winedatareport/blob/master/src/images/Screenshot.png?raw=true)
 
