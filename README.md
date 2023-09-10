@@ -6,9 +6,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start` or ### `yarn start`
+### `npm start` or `yarn start`
 
-![alt text](https://github.com/[sarfaraztechcom]/[winedatareport]/blob/[master]/src/images/Screenshot.png?raw=true)
+### `npm start`
+
+![alt text](https://github.com/SarfarazInfoTech/winedatareport/blob/master/src/images/Screenshot.png?raw=true)
 
 ### `npm run build` fails to minify
 
