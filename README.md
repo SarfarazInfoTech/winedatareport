@@ -6,11 +6,29 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start` or `yarn start`
+### `yarn start`
 
-### `npm start`
+Languages/Libraries/Tools to be used:
+
+1. TypeScript
+2. React via CRA
+3. Yarn
+
+Folder Structure
+
+### `- src`
+###    `- app`
+         - App.js
+         - App.css
+###    `- data`
+         - Wine-Data.json
+###    `- images`
+         - Screenshot.png
+###    `- screen`
+         - FlavanoidsStatistics.tsx
+         - GammaStatistics.tsx
+    - index.js
 
 ![alt text](https://github.com/SarfarazInfoTech/winedatareport/blob/master/src/images/Screenshot.png?raw=true)
 
 ### `npm run build` fails to minify
-
