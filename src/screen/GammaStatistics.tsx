@@ -92,7 +92,7 @@ class GammaStatistics extends Component<{}, WineStatisticState> {
             <tr>
               <th>Measure</th>
               {gammaData.map((data) => (
-                <th key={`header-${data.index}`}>Class {data.index}</th>
+                <th key={`header-${data.index + 1}`}>Class {data.index + 1}</th>
               ))}
             </tr>
           </thead>
@@ -101,19 +101,19 @@ class GammaStatistics extends Component<{}, WineStatisticState> {
             <tr>
               <th>Flavanoids Mean</th>
               {gammaData.map((data) => (
-                <td key={`mean-${data.index}`}>{data.mean.toFixed(2)}</td>
+                <td key={`mean-${data.index}`}>{data.mean.toFixed(3)}</td>
               ))}
             </tr>
             <tr>
               <th>Flavanoids Median</th>
               {gammaData.map((data) => (
-                <td key={`median-${data.index}`}>{data.median.toFixed(2)}</td>
+                <td key={`median-${data.index}`}>{data.median.toFixed(3)}</td>
               ))}
             </tr>
             <tr>
               <th>Flavanoids Mode</th>
               {gammaData.map((data) => (
-                <td key={`mode-${data.index}`}>{data.mode.toFixed(2)}</td>
+                <td key={`mode-${data.index}`}>{data.mode.toFixed(3)}</td>
               ))}
             </tr>
           </tbody>

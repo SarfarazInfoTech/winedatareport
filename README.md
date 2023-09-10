@@ -1,12 +1,15 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In the project directory:
 
-## Available Scripts
+Install dependencies
+- yarn install
 
-In the project directory, you can run:
+You can run project 
+- yarn start
 
-### `yarn start`
+### `yarn install` or you can also use `npm install`
+### `yarn start` or you can also use `npm start`
 
 Languages/Libraries/Tools to be used:
 
@@ -14,7 +17,7 @@ Languages/Libraries/Tools to be used:
 2. React via CRA
 3. Yarn
 
-Folder Structure
+Folder structure
 
 ### `- src`
         - index.js
@@ -29,6 +32,8 @@ Folder Structure
          - FlavanoidsStatistics.tsx
          - GammaStatistics.tsx
 
+### `Screenshot`
+
 ![alt text](https://github.com/SarfarazInfoTech/winedatareport/blob/master/src/images/Screenshot.png?raw=true)
 
-### `npm run build` fails to minify
+### `npm run build` for production 

@@ -107,7 +107,7 @@ class FlavanoidsStatistics extends React.Component<{}, AppState> {
       const flavanoidsValues = groupedData[alcoholClass];
       const mean = this.calculateMean(flavanoidsValues);
 
-      arrayMean.push(<td key={`mean-${alcoholClass}`}>{mean.toFixed(2)}</td>);
+      arrayMean.push(<td key={`mean-${alcoholClass}`}>{mean.toFixed(3)}</td>);
     }
 
     for (const alcoholClass in groupedData) {
@@ -115,7 +115,7 @@ class FlavanoidsStatistics extends React.Component<{}, AppState> {
       const median = this.calculateMedian(flavanoidsValues);
 
       arrayMedian.push(
-        <td key={`median-${alcoholClass}`}>{median.toFixed(2)}</td>
+        <td key={`median-${alcoholClass}`}>{median.toFixed(3)}</td>
       );
     }
 

@@ -6,10 +6,10 @@ import GammaStatistics from "../screen/GammaStatistics.tsx";
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <FlavanoidsStatistics wineData={wineData} />
         <GammaStatistics wineData={wineData} />
-      </div>
+      </React.Fragment>
     );
   }
 }
