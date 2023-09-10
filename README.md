@@ -34,6 +34,6 @@ Folder structure
 
 ### `Screenshot`
 
-![alt text](https://github.com/SarfarazInfoTech/winedatareport/blob/master/src/images/Screenshot.png?raw=true)
+![alt text](https://github.com/SarfarazInfoTech/winedatareport/blob/master/src/images/screenshot.jpg?raw=true)
 
 ### `npm run build` for production 
