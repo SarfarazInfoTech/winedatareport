@@ -1,130 +1,118 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
-interface WineStatisticState {
-  wineData: {
-    Ash: number;
-    Hue: number;
-    Magnesium: number;
-  }[];
-  gammaData: {
-    index: number;
-    gamma: number;
-    mean: number;
-    median: number;
-    mode: number;
-  }[];
+interface WineData {
+  Alcohol: number;
+  Ash: number;
+  Hue: number;
+  Magnesium: number;
+  // Add more properties as needed
 }
 
-class GammaStatistics extends Component<{}, WineStatisticState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      wineData: [],
-      gammaData: [],
+interface ClassStatistics {
+  className: number;
+  mean: number;
+  median: number;
+  mode: number;
+}
+
+interface GammaStatisticProps {
+  wineData: WineData[];
+}
+
+function calculateGamma(dataPoint: WineData): number {
+  const { Ash, Hue, Magnesium } = dataPoint;
+  return (Ash * Hue) / Magnesium;
+}
+
+function GammaStatistics({ wineData }: GammaStatisticProps) {
+  const [gammaValues, setGammaValues] = useState<number[]>([]);
+
+  useEffect(() => {
+    const gammaArray = wineData.map(calculateGamma);
+    setGammaValues(gammaArray);
+  }, []);
+
+  const calculateClassStatistics = (className: number): ClassStatistics => {
+    const classData = wineData.filter((item) => item.Alcohol === className);
+    const gammaValuesOfClass = classData.map(calculateGamma);
+
+    const mean =
+      gammaValuesOfClass.reduce((acc, value) => acc + value, 0) /
+      gammaValuesOfClass.length;
+
+    gammaValuesOfClass.sort((a, b) => a - b);
+    const middle = Math.floor(gammaValuesOfClass.length / 2);
+    const median =
+      gammaValuesOfClass.length % 2 === 0
+        ? (gammaValuesOfClass[middle - 1] + gammaValuesOfClass[middle]) / 2
+        : gammaValuesOfClass[middle];
+
+    const modeMap: Record<number, number> = {};
+    let maxCount = 0;
+    let mode: number | null = null;
+
+    gammaValuesOfClass.forEach((value) => {
+      if (!modeMap[value]) {
+        modeMap[value] = 1;
+      } else {
+        modeMap[value]++;
+      }
+
+      if (modeMap[value] > maxCount) {
+        maxCount = modeMap[value];
+        mode = value;
+      }
+    });
+
+    return {
+      className,
+      mean,
+      median,
+      mode: mode || 0, // Ensure mode is not null
     };
-  }
+  };
 
-  componentDidMount() {
-    // Calculate Gamma for each data point
-    const gammaData = this.props.wineData.map((point, index) => {
-      const { Ash, Hue, Magnesium } = point;
-      const gamma = (Ash * Hue) / Magnesium;
-      return { index, gamma, mean: 0, median: 0, mode: 0 };
-    });
+  const classStatistics: ClassStatistics[] = [1, 2, 3].map((className) =>
+    calculateClassStatistics(className)
+  );
 
-    // Calculate class-wise mean, median, and mode of Gamma
-    const classWiseGamma = {};
-    gammaData.forEach((point) => {
-      if (!classWiseGamma[point.index]) {
-        classWiseGamma[point.index] = [];
-      }
-      classWiseGamma[point.index].push(point.gamma);
-    });
+  return (
+    <div>
+      <h2>Class-wise Gamma Statistics</h2>
 
-    const classStats = [];
-    for (const index in classWiseGamma) {
-      const gammaValues = classWiseGamma[index];
-      const mean =
-        gammaValues.reduce((sum, val) => sum + val, 0) / gammaValues.length;
-      const sortedValues = gammaValues.sort((a, b) => a - b);
-      const middle = Math.floor(gammaValues.length / 2);
-      const median =
-        gammaValues.length % 2 === 0
-          ? (sortedValues[middle - 1] + sortedValues[middle]) / 2
-          : sortedValues[middle];
-      const modeMap = {};
-      let mode = sortedValues[0];
-      let maxCount = 1;
-      for (let i = 0; i < gammaValues.length; i++) {
-        const value = sortedValues[i];
-        if (modeMap[value]) {
-          modeMap[value]++;
-          if (modeMap[value] > maxCount) {
-            mode = value;
-            maxCount = modeMap[value];
-          }
-        } else {
-          modeMap[value] = 1;
-        }
-      }
-      classStats.push({
-        index: parseInt(index),
-        mean,
-        median,
-        mode,
-      });
-    }
+      <table style={{ border: "1px solid black" }}>
+        <thead>
+          <tr>
+            <th>Measure</th>
+            {classStatistics.map((data) => (
+              <th key={`header-${data.className}`}>Class {data.className}</th>
+            ))}
+          </tr>
+        </thead>
 
-    // Filter classStats to include only Class 1, Class 2, and Class 3
-    const filteredClassStats = classStats.filter(
-      (data) => data.index === 1 || data.index === 2 || data.index === 3
-    );
-
-    // Update state with filtered Gamma data and class-wise statistics
-    this.setState({ gammaData: filteredClassStats });
-  }
-
-  render() {
-    const { gammaData } = this.state;
-
-    return (
-      <div>
-        <h2>Class-wise Gamma Statistics</h2>
-
-        <table style={{ border: "1px solid black" }}>
-          <thead>
-            <tr>
-              <th>Measure</th>
-              {gammaData.map((data) => (
-                <th key={`header-${data.index}`}>Class {data.index}</th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <th>Gamma Mean</th>
-              {gammaData.map((data) => (
-                <td key={`mean-${data.index}`}>{data.mean.toFixed(3)}</td>
-              ))}
-            </tr>
-            <tr>
-              <th>Gamma Median</th>
-              {gammaData.map((data) => (
-                <td key={`median-${data.index}`}>{data.median.toFixed(3)}</td>
-              ))}
-            </tr>
-            <tr>
-              <th>Gamma Mode</th>
-              {gammaData.map((data) => (
-                <td key={`mode-${data.index}`}>{data.mode.toFixed(3)}</td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  }
+        <tbody>
+          <tr>
+            <th>Gamma Mean</th>
+            {classStatistics.map((data, index) => (
+              <td key={`mean-${index}`}>{data.mean.toFixed(3)}</td>
+            ))}
+          </tr>
+          <tr>
+            <th>Gamma Median</th>
+            {classStatistics.map((data, index) => (
+              <td key={`median-${index}`}>{data.median.toFixed(3)}</td>
+            ))}
+          </tr>
+          <tr>
+            <th>Gamma Mode</th>
+            {classStatistics.map((data, index) => (
+              <td key={`mode-${index}`}>{data.mode.toFixed(3)}</td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 export default GammaStatistics;
