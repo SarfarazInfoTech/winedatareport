@@ -27,13 +27,13 @@ Folder structure
 ###    `- data`
          - Wine-Data.json
 ###    `- images`
-         - Screenshot.png
+         - screenshot.png
 ###    `- screen`
          - FlavanoidsStatistics.tsx
          - GammaStatistics.tsx
 
 ### `Screenshot`
 
-![alt text](https://github.com/SarfarazInfoTech/winedatareport/blob/master/src/images/Screenshot.png?raw=true)
+![alt text](https://github.com/SarfarazInfoTech/winedatareport/blob/master/src/images/screenshot.png?raw=true)
 
 ### `npm run build` for production 
